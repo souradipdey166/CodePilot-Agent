@@ -1,3 +1,6 @@
-.env
 venv/
+workspace/
+.env
+data/
 __pycache__/
+*.pyc
