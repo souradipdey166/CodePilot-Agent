@@ -9,9 +9,8 @@ from loop import run_agent
 REPO_URL = "https://github.com/souradipdey166/endtoend_ML_project"
 REPO_NAME = "endtoend_ML_project"
 ISSUE_DESCRIPTION = """
-The dev(a, b) function is supposed to perform integer division (a // b), 
-but it currently performs subtraction (a - b) instead. For example, 
-dev(10, 3) should return 3, but it returns 7.
+Users report that dev(10, 3) returns 7 instead of the expected value.
+Something is wrong with how the division is being calculated.
 """
 TARGET_FILE = "src/check.py"
 # -----------------------------------------------------
@@ -19,7 +18,8 @@ TARGET_FILE = "src/check.py"
 repo_path = clone_repo(REPO_URL, REPO_NAME)
 print(f"Cloned to: {repo_path}")
 
-result = run_agent(repo_path, TARGET_FILE, ISSUE_DESCRIPTION)
+#result = run_agent(repo_path, TARGET_FILE, ISSUE_DESCRIPTION)
+result = run_agent(repo_path, TARGET_FILE, ISSUE_DESCRIPTION, repo_name=REPO_NAME)
 
 print("\n=== FINAL RESULT ===")
 print("Success:", result["success"])

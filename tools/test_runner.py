@@ -1,17 +1,24 @@
 import subprocess
 from pathlib import Path
 
+DOCKER_IMAGE = "code-agent-sandbox"
+
 def run_tests(repo_path: Path, timeout: int = 60) -> dict:
-    """Run pytest inside the repo, return pass/fail + output."""
-    # Run from src/ if it exists, since that's where the code + tests live
-    test_dir = Path(repo_path) / "src"
-    if not test_dir.exists():
-        test_dir = Path(repo_path)
+    """Run pytest inside a Docker container, isolated from the host machine."""
+    repo_path = Path(repo_path).resolve()
+
+    # Find the working directory inside the repo (src/ if it exists, else repo root)
+    test_dir = "src" if (repo_path / "src").exists() else "."
 
     try:
         result = subprocess.run(
-            ["python", "-m", "pytest", "-v"],
-            cwd=test_dir,
+            [
+                "docker", "run", "--rm",
+                "-v", f"{repo_path}:/workspace",
+                "-w", f"/workspace/{test_dir}",
+                DOCKER_IMAGE,
+                "python", "-m", "pytest", "-v"
+            ],
             capture_output=True,
             text=True,
             timeout=timeout

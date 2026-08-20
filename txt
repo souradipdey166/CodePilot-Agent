@@ -1,0 +1,1 @@
+One interesting detail worth noticing (not a problem, just worth understanding): the LLM's attempt 1 already added a ZeroDivisionError check that wasn't in the original bug report — it's being a bit proactive/defensive beyond what was asked. Minor, not wrong, just something you could mention if asked "did the agent do anything unexpected?"

@@ -11,6 +11,8 @@ print("\nSearch results for 'def get(':")
 for r in results[:5]:
     print(f"  {r['file']}:{r['line']} -> {r['text']}")
 
+print('\n-'*2)
+
 if results:
     content = read_file(repo_path, results[0]["file"])
     print(f"\nFirst 200 chars of {results[0]['file']}:")
